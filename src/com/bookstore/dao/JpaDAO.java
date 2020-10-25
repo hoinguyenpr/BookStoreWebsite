@@ -13,6 +13,7 @@ public class JpaDAO<E> {
 		this.entityManager = entityManager;
 	}
 	
+	//create an entity return an entity
 	public E create(E entity) {
 		entityManager.getTransaction().begin();
 		
@@ -25,6 +26,7 @@ public class JpaDAO<E> {
 		return entity;
 	}
 	
+	//update an entity return an entity
 	public E update(E entity) {
 		entityManager.getTransaction().begin();
 		
@@ -35,6 +37,7 @@ public class JpaDAO<E> {
 		return entity;
 	}
 	
+	//delete an entity by ID and class type
 	public void delete(Class<E> type, Object id) {
 		entityManager.getTransaction().begin();
 		
@@ -45,6 +48,7 @@ public class JpaDAO<E> {
 	}
 	
 	//find() method not change the database so don't getTransaction.
+	//find an entity by ID and class type
 	public E find(Class<E> type , Object id) {
 		E entity = entityManager.find(type, id);
 		if(entity != null) {
@@ -53,6 +57,12 @@ public class JpaDAO<E> {
 		return entity;
 	}
 	
+	/*
+	 * Return a List entity with parameter
+	 * 
+	 * eg: select * from users where email = "hoinguyenpr@gmail.com"
+	 * 
+	 * */
 	public List<E> findWithNamedQuery(String queryName, String paraName, Object paraValue){
 		
 		Query query = entityManager.createNamedQuery(queryName);
@@ -62,11 +72,18 @@ public class JpaDAO<E> {
 		return query.getResultList();
 	}
 	
+	/*
+	 * Return a List entity without parameter
+	 * 
+	 * */
 	public List<E> findWithNamedQuery(String queryName){
 		Query query = entityManager.createNamedQuery(queryName);
 		return query.getResultList();	
 	}
 	
+	/*
+	 * Return an entity without parameter
+	 * */
 	public long countWithNamedQuery(String queryName) {
 		Query query = entityManager.createNamedQuery(queryName);
 		return (long) query.getSingleResult();

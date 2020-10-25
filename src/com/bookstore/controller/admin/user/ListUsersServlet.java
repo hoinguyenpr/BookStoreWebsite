@@ -1,4 +1,4 @@
-package com.bookstore.controller.frontend;
+package com.bookstore.controller.admin.user;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,27 +11,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bookstore.controller.BaseServlet;
-import com.bookstore.dao.CategoryDAO;
-import com.bookstore.entity.Category;
+import com.bookstore.entity.Users;
+import com.bookstore.service.UserServices;
 
 
-@WebServlet("")
-public class HomeServlet extends BaseServlet {
+@WebServlet("/admin/list_users")
+public class ListUsersServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public HomeServlet() {
+    public ListUsersServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		CategoryDAO categoryDAO = new CategoryDAO(entityManager);
-		List<Category> listCategories = categoryDAO.listAll();
-		request.setAttribute("listCategory", listCategories);
+		UserServices userServices = new UserServices(entityManager, request, response);
 		
-		String homepage = "/frontend/index.jsp";
-		RequestDispatcher dispatcher = request.getRequestDispatcher(homepage);
-		dispatcher.forward(request, response);
+		userServices.listUser();
 	}
 }

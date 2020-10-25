@@ -10,7 +10,6 @@ public class UserDAO extends JpaDAO<Users> implements GenericDAO<Users> {
 
 	public UserDAO(EntityManager entityManager) {
 		super(entityManager);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Users create(Users user) {
@@ -19,13 +18,11 @@ public class UserDAO extends JpaDAO<Users> implements GenericDAO<Users> {
 
 	@Override
 	public Users update(Users user) {
-		// TODO Auto-generated method stub
 		return super.update(user);
 	}
 
 	@Override
 	public Users get(Object userID) {
-		// TODO Auto-generated method stub
 		return super.find(Users.class, userID);
 	}
 	
@@ -47,7 +44,6 @@ public class UserDAO extends JpaDAO<Users> implements GenericDAO<Users> {
 
 	@Override
 	public List<Users> listAll() {
-		// TODO Auto-generated method stub
 		return super.findWithNamedQuery("Users.findAll");
 	}
 
