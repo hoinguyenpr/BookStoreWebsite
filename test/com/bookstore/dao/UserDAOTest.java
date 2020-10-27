@@ -115,6 +115,21 @@ public class UserDAOTest {
 		assertNotNull(list);
 	}
 	
+	@Test
+	public void testCheckLoginSuccess() {
+		String email = "levanlo1997@gmail.com";
+		String password = "123456lo@";
+		boolean result = userDAO.checkLogin(email, password);
+		assertTrue(result);
+	}
+	
+	@Test
+	public void testCheckLoginFaild() {
+		String email = "levanlo1997@gmail.com";
+		String password = "zzzzzzzzzzzzz";
+		boolean result = userDAO.checkLogin(email, password);
+		assertFalse(result);
+	}
 	@AfterClass
 	public static void tearDownClass() {
 		entityManager.close();

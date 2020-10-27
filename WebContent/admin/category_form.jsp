@@ -5,8 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Create New Category</title>
+	<meta charset="ISO-8859-1">
+	<title>Create New Category</title>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<script type="text/javascript" src="../js/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 </head>
 <body>
 
@@ -14,24 +17,24 @@
 
 	<div align="center">
 		<c:if test="${category == null}">
-			<h2>Create Category</h2>
+			<h2 class = "pageheading" >Create Category</h2>
 		</c:if>
 		<c:if test="${category != null}">
-			<h2>Edit Category</h2>
+			<h2 class = "pageheading">Edit Category</h2>
 		</c:if>
 	</div>
 
 	<div align="center">
 
 		<c:if test="${category != null}">
-			<form action="update_category" method="post" onsubmit="return validateFormInput()">
+			<form action="update_category" method="post" id = "categoryForm">
 				<input type="hidden" name="categoryId" value="${category.categoryId}">
 		</c:if>
 
 		<c:if test="${category == null}">
-			<form action="create_category" method="post" onsubmit="return validateFormInput()">
+			<form action="create_category" method="post" id = "categoryForm">
 		</c:if>
-				<table>
+				<table class = "form">
 					<tr>
 						<td>Name:</td>
 						<td><input type="text" id="name" name="name" size="25" value="${category.name}"></td>
@@ -42,16 +45,16 @@
 
 					<c:if test="${message != null}">
 						<tr>
-							<td><p>
-									<i>${message} </i>
+							<td><p class = "messsage">
+									${message}
 								</p></td>
 						</tr>
 					</c:if>
 
 					<tr>
-						<td colspan="2" align="center"><input type="submit"
-							value="Save"> &nbsp; &nbsp;&nbsp; <input type="button"
-							value="Cancel" onclick="javascript:history.go(-1);">
+						<td colspan="2" align="center">
+							<button type="submit">Save</button> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; 
+							<button id = "cancelButton" >Cancel</button>
 						</td>
 					</tr>
 				</table>
@@ -62,15 +65,20 @@
 
 </body>
 <script type="text/javascript">
-	function validateFormInput() {
-		var feildName = document.getElementById("name");
 
-		if (feildName.value.length == 0) {
-			alert("Category name is required");
-			feildName.focus();
-			return false;
-		}
-		return true;
-	}
+	$(document).ready(function(){
+		$("#categoryForm").validate({
+			rules:{
+				name: "required"
+			},
+			messages: {
+				name: "Category name is required"
+			}
+		});
+		$("#cancelButton").click(function(){
+			history.go(-1);
+		});
+	});
+	
 </script>
 </html>

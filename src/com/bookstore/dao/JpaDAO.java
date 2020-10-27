@@ -1,8 +1,12 @@
 package com.bookstore.dao;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.persistence.Query;
+
 import javax.persistence.EntityManager;
 
 public class JpaDAO<E> {
@@ -58,7 +62,7 @@ public class JpaDAO<E> {
 	}
 	
 	/*
-	 * Return a List entity with parameter
+	 * Return a List entity with a parameter
 	 * 
 	 * eg: select * from users where email = "hoinguyenpr@gmail.com"
 	 * 
@@ -68,6 +72,21 @@ public class JpaDAO<E> {
 		Query query = entityManager.createNamedQuery(queryName);
 		
 		query.setParameter(paraName, paraValue);
+		
+		return query.getResultList();
+	}
+	
+	/*
+	 * Return a List entity with two parameters
+	 * */
+	public List<E> findWithNamedQuery(String queryName, Map<String, Object> parameters){
+		Query query = entityManager.createNamedQuery(queryName);
+		
+		Set<Entry<String, Object>> setParameters = parameters.entrySet();
+		
+		for(Entry<String, Object> entry: setParameters) {
+			query.setParameter(entry.getKey(), entry.getValue());
+		}
 		
 		return query.getResultList();
 	}

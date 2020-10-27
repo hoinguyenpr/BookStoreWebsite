@@ -18,7 +18,8 @@ import javax.persistence.Table;
 @NamedQueries({
 		@NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u ORDER BY u.fullName"),
 		@NamedQuery(name = "Users.countAll", query = "SELECT COUNT(*) from Users u"),
-		@NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email")
+		@NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email"),
+		@NamedQuery(name =  "Users.checkLogin", query = "SELECT u FROM Users u WHERE u.email = :email AND password = :password")
 })
 
 public class Users implements java.io.Serializable {
